@@ -3,7 +3,7 @@ from mininet.cli import CLI
 from mininet.node import OVSKernelSwitch, RemoteController
 from mininet.link import TCLink
 import sys
-
+import time
 
 def iniciar_red(cantidad_switches, ip_controlador="127.0.0.1", puerto_controlador=6633):
     red = Mininet(controller=RemoteController, switch=OVSKernelSwitch, link=TCLink)
@@ -12,11 +12,11 @@ def iniciar_red(cantidad_switches, ip_controlador="127.0.0.1", puerto_controlado
     h2 = red.addHost("h2", ip="10.0.0.2")
     h3 = red.addHost("h3", ip="10.0.0.3")
     h4 = red.addHost("h4", ip="10.0.0.4")
-    extremo_izquierdo = red.addSwitch("s_inicio")
-    extremo_derecho = red.addSwitch("s_fin")
+    extremo_izquierdo = red.addSwitch("s1")
+    extremo_derecho = red.addSwitch(f"s{cantidad_switches+2}")
     intermedios = []
     for indice in range(cantidad_switches):
-        intermedios.append(red.addSwitch(f"s_cadena{indice+1}"))
+        intermedios.append(red.addSwitch(f"s_cadena{indice+2}"))
     anterior = extremo_izquierdo
     for nodo in intermedios:
         red.addLink(anterior, nodo)
@@ -28,7 +28,7 @@ def iniciar_red(cantidad_switches, ip_controlador="127.0.0.1", puerto_controlado
     red.addLink(h4, extremo_derecho)
     red.start()
     red.pingAll()
-    print("")
+
     print("Red iniciada")
     print(f"Controlador remoto: {ip_controlador}:{puerto_controlador}")
     print("Escribe exit en la CLI para finalizar")

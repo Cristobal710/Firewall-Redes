@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_ROOT="/mnt/extra_space/Redes/Firewall-Redes"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 POX_DIR="${PROJECT_ROOT}/pox"
 POX_ENTRY="${POX_DIR}/pox.py"
 RULES_FILE="${PROJECT_ROOT}/config/reglas_firewall.json"
+
 
 CONTROLLER_IP="${1:-127.0.0.1}"
 CONTROLLER_PORT="${2:-6633}"
 FIREWALL_RULES="${3:-${RULES_FILE}}"
 TARGET_SWITCH="${4:-}"
-
-export PYTHONPATH="${POX_DIR}:${POX_DIR}/pox:${PYTHONPATH:-}"
 
 echo "Iniciando POX (firewall L2) en ${CONTROLLER_IP}:${CONTROLLER_PORT}..."
 echo "Archivo de reglas: ${FIREWALL_RULES}"
