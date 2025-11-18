@@ -5,12 +5,14 @@
    - Verificar que `config/reglas_firewall.json` contenga las reglas pedidas.
 
 2. **Levantar controlador POX**
-   - Ejecutar `./run_with_pox.sh 127.0.0.1 6633 config/reglas_firewall.json`.
+   - Ejecutar 
+      - Opcion 1: `./run_with_pox.sh`.
+      - Opcion 2: `./run_with_pox.sh 127.0.0.1 6633 config/reglas_firewall.json s3`  --controller_ip  --puerto --ruta_firewall_rules --switch_con_firewall
    - Esperar el mensaje “POX en marcha”.
 
 3. **Iniciar topología en Mininet**
    - Abrir otra terminal con permisos de root.
-   - Correr `python3 src/start_mininet.py <cantidad_switches> 127.0.0.1 6633`.
+   - Correr `sudo python3 src/start_mininet.py <cantidad_switches> 127.0.0.1 6633`.
    - Confirmar que la CLI de Mininet quede activa.
 
 4. **Pruebas básicas**

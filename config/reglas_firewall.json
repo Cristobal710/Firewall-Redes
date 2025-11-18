@@ -1,4 +1,5 @@
 {
+  "firewall_switch": "s1",
   "reglas": [
     {
       "name": "Bloqueo HTTP puerto 80",
