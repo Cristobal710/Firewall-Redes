@@ -13,26 +13,27 @@ CONTROLLER_PORT="${2:-6633}"
 FIREWALL_RULES="${3:-${RULES_FILE}}"
 TARGET_SWITCH="${4:-}"
 
-echo "Iniciando POX (firewall L2) en ${CONTROLLER_IP}:${CONTROLLER_PORT}..."
+echo "Iniciando POX (forwarding L2 + firewall) en ${CONTROLLER_IP}:${CONTROLLER_PORT}..."
 echo "Archivo de reglas: ${FIREWALL_RULES}"
 [ -n "${TARGET_SWITCH}" ] && echo "Switch objetivo para firewall: ${TARGET_SWITCH}"
 
-
+# Asegurarse de que la ruta de reglas sea absoluta
 if [[ "${FIREWALL_RULES}" != /* ]]; then
     FIREWALL_RULES="${PROJECT_ROOT}/${FIREWALL_RULES#./}"
 fi
 
-
 pushd "${POX_DIR}" >/dev/null
 
+# Construir el comando de POX
+POX_CMD=(python3 "${POX_ENTRY}" openflow.of_01 --port="${CONTROLLER_PORT}" forwarding.l2_learning firewall --reglas="${FIREWALL_RULES}")
+
+# Añadir switch objetivo si está definido
 if [ -n "${TARGET_SWITCH}" ]; then
-    python3 "${POX_ENTRY}" openflow.of_01 --port="${CONTROLLER_PORT}" firewall \
-        --reglas="${FIREWALL_RULES}" --switch_objetivo="${TARGET_SWITCH}" &
-else
-    python3 "${POX_ENTRY}" openflow.of_01 --port="${CONTROLLER_PORT}" firewall \
-        --reglas="${FIREWALL_RULES}" &
+    POX_CMD+=(--switch_objetivo="${TARGET_SWITCH}")
 fi
 
+# Ejecutar POX en segundo plano
+"${POX_CMD[@]}" &
 POX_PID=$!
 popd >/dev/null
 

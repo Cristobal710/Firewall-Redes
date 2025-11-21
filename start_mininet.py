@@ -12,7 +12,7 @@ def iniciar_red(cantidad_switches, ip_controlador="127.0.0.1", puerto_controlado
     h2 = red.addHost("h2", ip="10.0.0.2")
     h3 = red.addHost("h3", ip="10.0.0.3")
     h4 = red.addHost("h4", ip="10.0.0.4")
-    extremo_izquierdo = red.addSwitch("s1")
+    extremo_izquierdo = red.addSwitch("s1", dpid="1")
     extremo_derecho = red.addSwitch(f"s{cantidad_switches+2}")
     intermedios = []
     for indice in range(cantidad_switches):
