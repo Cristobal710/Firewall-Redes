@@ -12,7 +12,7 @@
 
 3. **Iniciar topología en Mininet**
    - Abrir otra terminal con permisos de root.
-   - Correr `sudo python3 src/start_mininet.py <cantidad_switches> 127.0.0.1 6633`.
+   - Correr `sudo python3 start_mininet.py <cantidad_switches> 127.0.0.1 6633`.
    - Confirmar que la CLI de Mininet quede activa.
 
 4. **Pruebas básicas**

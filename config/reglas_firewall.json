@@ -1,17 +1,26 @@
 {
-  "firewall_switch": "s1",
+  "firewall_switch": "s3",
   "reglas": [
     {
-      "name": "Bloqueo h2 hacia h3 ARP",
-      "ip_tipo": "arp",
-      "mac_origen": "00:00:00:00:00:02",
-      "mac_destino": "00:00:00:00:00:03"
+      "name": "Bloqueo HTTP puerto 80",
+      "protocolo": "tcp",
+      "puerto_destino": 80
     },
     {
-      "name": "Bloqueo h3 hacia h2 ARP",
-      "ip_tipo": "arp",
-      "mac_origen": "00:00:00:00:00:03",
-      "mac_destino": "00:00:00:00:00:02"
+      "name": "Bloqueo UDP h1 puerto 5001",
+      "protocolo": "udp",
+      "ip_origen": "10.0.0.1",
+      "puerto_destino": 5001
+    },
+    {
+      "name": "Bloqueo h2 hacia h3 IPv4",
+      "ip_origen": "10.0.0.2",
+      "ip_destino": "10.0.0.3"
+    },
+    {
+      "name": "Bloqueo h3 hacia h2 IPv4",
+      "ip_origen": "10.0.0.3",
+      "ip_destino": "10.0.0.2"
     }
   ]
 }
