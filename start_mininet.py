@@ -16,7 +16,7 @@ def iniciar_red(cantidad_switches, ip_controlador="127.0.0.1", puerto_controlado
     extremo_derecho = red.addSwitch(f"s{cantidad_switches+2}")
     intermedios = []
     for indice in range(cantidad_switches):
-        intermedios.append(red.addSwitch(f"s_cadena{indice+2}"))
+        intermedios.append(red.addSwitch(f"s{indice+2}"))
     anterior = extremo_izquierdo
     for nodo in intermedios:
         red.addLink(anterior, nodo)
